@@ -1,0 +1,15 @@
+#!/bin/bash
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+PROJECT_DIR="$(dirname $SCRIPT_DIR)"
+
+mkdir -p $PROJECT_DIR/volumes/neo4j/data
+mkdir -p $PROJECT_DIR/volumes/neo4j/logs
+
+docker-compose build neo4j
+docker-compose build app
+docker-compose up -d neo4j
+
+sleep 10
+
+docker-compose exec neo4j /mnt/neo4j/initialize-database.sh

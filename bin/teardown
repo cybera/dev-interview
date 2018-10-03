@@ -1,0 +1,14 @@
+#!/bin/bash
+
+SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
+PROJECT_DIR="$(dirname $SCRIPT_DIR)"
+
+docker-compose stop app
+docker-compose stop neo4j
+docker-compose rm -f app
+docker-compose rm -f neo4j
+
+docker rmi -f dev-interview_neo4j
+docker rmi -f dev-interview_app
+
+mv $PROJECT_DIR/volumes/neo4j ~/.Trash

@@ -1,0 +1,23 @@
+version: '3'
+services:
+  neo4j:
+    build: ./setup/neo4j
+    ports:
+      - "7474:7474"
+      - "7687:7687"
+      - "7473:7473"
+    environment:
+      - NEO4J_AUTH=neo4j/password
+    networks:
+      - default
+    volumes:
+      - ./setup/neo4j:/mnt/neo4j
+      - ./volumes/neo4j/data:/data
+      - ./volumes/neo4j/logs:/logs
+  app:
+    build: ./setup/app
+    networks:
+      - default
+    volumes:
+      - ./scripts:/mnt/scripts
+    
