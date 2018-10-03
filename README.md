@@ -20,7 +20,7 @@ Haven't used a graph database before? Great! Don't worry about understanding it 
 
 5. Don't worry about making your code look nice. You shouldn't expect to have to write a lot of code, but what matters most is working code.
 
-6. You have a maximum of 20 minutes to complete this before we go on with the interview. Let this be your guide for how much you should be involving us.
+6. You have a maximum of 30 minutes to complete this before we go on with the interview. Let this be your guide for how much you should be involving us.
 
 ## Important Documentation
 
