@@ -16,7 +16,7 @@ https://neo4j.com/docs/developer-manual/current/cypher/
 
 https://github.com/neo4j/neo4j-python-driver
 
-Note: For simple queries like you'll be running here, you can call `driver.session.run(...)` directly. Don't worry about running your queries within transactions.
+Note: For simple queries like you'll be running here, you can call `driver.session().run("MATCH (p:Person) ... ")` directly. Don't worry about running your queries within transactions.
 
 ### Docker
 
