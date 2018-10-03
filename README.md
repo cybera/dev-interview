@@ -4,25 +4,9 @@
 
 Print the names of co-stars in Tom Hanks movies to the command line via a Python script. You will be getting this data from a graph database (Neo4J) containing `Movie` and `Person` nodes with `ACTED_IN` relations.
 
+You can write your script in *scripts/answer.py* and run it with `bin/run`.
+
 Haven't used a graph database before? Great! Don't worry about understanding it fully. You'll need just enough to get what you need out of it.
-
-## Important Documentation
-
-### Neo4J Cypher query language
-
-https://neo4j.com/docs/developer-manual/current/cypher/
-
-### Python Neo4J driver
-
-https://github.com/neo4j/neo4j-python-driver
-
-Note: For simple queries like you'll be running here, you can call `driver.session().run("MATCH (p:Person) ... ")` directly. Don't worry about running your queries within transactions.
-
-### Docker
-
-Docker is a tool for running containers. For the purpose of this exercise, think of containers as just a lightweight virtual machine within this actual laptop, or an easy way of simulating a multi-server environment.
-
-If you're unfamiliar with Docker or have trouble running any of the commands, feel free to ask questions. We're using Docker as a tool to administer this test, not to test you with.
 
 ## Rules
 
@@ -38,7 +22,56 @@ If you're unfamiliar with Docker or have trouble running any of the commands, fe
 
 6. You have a maximum of 20 minutes to complete this before we go on with the interview. Let this be your guide for how much you should be involving us.
 
-## Helpful information
+## Important Documentation
+
+### Neo4J Cypher query language
+
+Here's a crash course in Cypher, related to your problem. How do you find Tom Hanks?
+
+```
+MATCH (tom:Person { name: 'Tom Hanks' })
+RETURN tom
+```
+
+How would you list movies he's been in?
+
+```
+MATCH (tom:Person { name: 'Tom Hanks' })-[:ACTED_IN]->(m:Movie)
+RETURN m.title
+```
+
+The "MATCH" clause in Cypher is very pattern oriented. The parts between the `()` are nodes in your graph, and the parts between `[]` are relationships. You draw the pattern of nodes/relationships with `(a)-[r]->(b)`. You can read the above as: "Match a Person with the name 'Tom Hanks' and assign that to 'tom', follow the ACTED_IN relationship to any Movie and assign that to 'm'. Then return the title of every 'm' Movie you found."
+
+Relationships can go in two directions, and you can specify more than one relationship in a single `MATCH` statement. For example `MATCH (a)-[:RELATIONSHIP]->(b)<-[:RELATIONSHIP]-(c)` is valid.
+
+Here's more comprehensive documentation on Cypher if you need to look up anything specific: https://neo4j.com/docs/developer-manual/current/cypher/. But keep in mind that the 2nd query above is actually very close to what you need.
+
+### Python Neo4J driver
+
+You can find the original documentation for the neo4j Python driver here: https://github.com/neo4j/neo4j-python-driver. 
+
+But it's more complex than what you'll need. Here is a simplified version of their "Quick Example" (note, you'll still have to make at least one change other than your query, as they assume your script accesses neo4j through 'localhost'):
+
+```python
+from neo4j import GraphDatabase
+
+driver = GraphDatabase.driver("bolt://localhost:7687", auth=("neo4j", "password"))
+results = driver.session().run('MATCH (n) ... RETURN ...')
+for r in results:
+    print(r['n.prop'])
+```
+
+### Docker
+
+This exercise is running 2 Docker containers on the laptop: One for "neo4j" and one for the "app", which is where your script runs. We don't expect you to learn or know Docker as well in this exercise, but you should think of these 2 containers as if they're 2 separate servers.
+
+We've pulled out the commands you'll need in Docker into scripts in the `bin` directory:
+
+- `bin/run` to run your python script, located in *scripts/answer.py*. Right now, it just says 'hello world'
+- `bin/rebuild-app` to rebuild the application container (you may find you need to install a library)
+- `bin/python-console` and `bin/bash-console`: Depending on how you like to work (if you want to test commands or code snippets), these may be useful. But you can also just re-run the first 2 commands to test changes.
+
+## Other helpful information
 
 ### Neo4J login credentials
 
@@ -49,43 +82,23 @@ Password: password
 
 Neo4J has a browser based query interface at http://localhost:7474 that you can use to test out your query.
 
-### Running a Python console
+The browser itself contains some useful information:
 
-```bash
-docker-compose run app python
-```
+![](images/neo4j-info.png)
 
-### Rebuilding a Docker image
+And it can help you visualize and explore the graph while tuning a query:
 
-You may find that you need to add a library. We can help you figure out where to do that if you're unfamiliar with docker-compose and Dockerfiles.
+![](images/single-node.png)
 
-When you're done, you can rebuild your image with this command:
+Clicking the expand icon gives you:
 
-```bash
-docker-compose build app
-```
+![](images/expanded-node.png)
 
-### Running a Python script
+### Dockerfiles
 
-Any scripts put in the *scripts* folder in this project will be available at */mnt/scripts* within the Docker 'app' container.
+Dockerfiles specify steps for building a container. You may need to edit one. The app's Dockerfile is in *setup/app/Dockerfile* and neo4j's is in *setup/neo4j/Dockerfile*.
 
-You can run a script via:
-
-```bash
-docker-compose run app python /mnt/scripts/helloworld.py
-```
-
-Take note of where *helloworld.py* is within this project. You can put your script right beside that one.
-
-### Running a Bash console
-
-You can start up a bash console via:
-
-```bash
-docker-compose run app bash
-```
-
-### Networking and docker-compose
+### Networking with Docker
 
 Within the Docker containers, other services will be available by using their service name as a hostname. For example, `bolt://neo4j` will be allow you to access `neo4j` from the `app` container via the "bolt" protocol.
 
