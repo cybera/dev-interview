@@ -45,6 +45,10 @@ If you're unfamiliar with Docker or have trouble running any of the commands, fe
 Username: neo4j
 Password: password
 
+### Testing Cypher Queries
+
+Neo4J has a browser based query interface at http://localhost:7474 that you can use to test out your query.
+
 ### Running a Python console
 
 ```bash
@@ -99,4 +103,4 @@ Make sure to run this command after the interview:
 bin/teardown
 ```
 
-(and empty your Trash)
+(Empty the Trash and clear your browser cache)
