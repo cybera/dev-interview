@@ -28,14 +28,14 @@ Haven't used a graph database before? Great! Don't worry about understanding it 
 
 Here's a crash course in Cypher, related to your problem. How do you find Tom Hanks?
 
-```
+```cypher
 MATCH (tom:Person { name: 'Tom Hanks' })
 RETURN tom
 ```
 
 How would you list movies he's been in?
 
-```
+```cypher
 MATCH (tom:Person { name: 'Tom Hanks' })-[:ACTED_IN]->(m:Movie)
 RETURN m.title
 ```
@@ -44,11 +44,11 @@ The "MATCH" clause in Cypher is very pattern oriented. The parts between the `()
 
 Relationships can go in two directions, and you can specify more than one relationship in a single `MATCH` statement. For example `MATCH (a)-[:RELATIONSHIP]->(b)<-[:RELATIONSHIP]-(c)` is valid.
 
-Here's more comprehensive documentation on Cypher if you need to look up anything specific: https://neo4j.com/docs/developer-manual/current/cypher/. But keep in mind that the 2nd query above is actually very close to what you need.
+[Here's more comprehensive documentation on Cypher](https://neo4j.com/docs/developer-manual/current/cypher/) if you need to look up anything specific. But keep in mind that the 2nd query above is actually very close to what you need.
 
 ### Python Neo4J driver
 
-You can find the original documentation for the neo4j Python driver here: https://github.com/neo4j/neo4j-python-driver. 
+You can find the original documentation for the neo4j Python driver [here](https://github.com/neo4j/neo4j-python-driver).
 
 But it's more complex than what you'll need. Here is a simplified version of their "Quick Example" (note, you'll still have to make at least one change other than your query, as they assume your script accesses neo4j through 'localhost'):
 
@@ -80,19 +80,19 @@ Password: password
 
 ### Testing Cypher Queries
 
-Neo4J has a browser based query interface at http://localhost:7474 that you can use to test out your query.
+Neo4J has a browser based query interface at [http://localhost:7474](http://localhost:7474) that you can use to test out your query.
 
 The browser itself contains some useful information:
 
-![](images/neo4j-info.png)
+![neo4j-info](images/neo4j-info.png)
 
 And it can help you visualize and explore the graph while tuning a query:
 
-![](images/single-node.png)
+![single-node](images/single-node.png)
 
 Clicking the expand icon gives you:
 
-![](images/expanded-node.png)
+![expanded-node](images/expanded-node.png)
 
 ### Dockerfiles
 
