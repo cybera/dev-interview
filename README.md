@@ -12,7 +12,7 @@ Haven't used a graph database before? Great! Don't worry about understanding it 
 
 1. You can ask questions about anything at any time.
 
-2. You can look up documentation or code snippets (or anything else) at any time from anywhere. We've included what we think will be the most helpful documentation above.
+2. You can look up documentation or code snippets (or anything else) at any time from anywhere. We've included what we think will be the most necessary and helpful documentation below.
 
 3. There are no real "tricks" to this. We want to see how you go about figuring out something new.
 
@@ -29,22 +29,32 @@ Haven't used a graph database before? Great! Don't worry about understanding it 
 Here's a crash course in Cypher, related to your problem. How do you find Tom Hanks?
 
 ```cypher
-MATCH (tom:Person { name: 'Tom Hanks' })
-RETURN tom
+MATCH (p:Person { name: 'Tom Hanks' })
+RETURN p
 ```
 
 How would you list movies he's been in?
 
 ```cypher
-MATCH (tom:Person { name: 'Tom Hanks' })-[:ACTED_IN]->(m:Movie)
+MATCH (p:Person { name: 'Tom Hanks' })-[:ACTED_IN]->(m:Movie)
 RETURN m.title
 ```
 
-The "MATCH" clause in Cypher is very pattern oriented. The parts between the `()` are nodes in your graph, and the parts between `[]` are relationships. You draw the pattern of nodes/relationships with `(a)-[r]->(b)`. You can read the above as: "Match a Person with the name 'Tom Hanks' and assign that to 'tom', follow the ACTED_IN relationship to any Movie and assign that to 'm'. Then return the title of every 'm' Movie you found."
+The `MATCH` clause in Cypher is very pattern oriented. The parts between the `()` are nodes in your graph, the parts between `[]` are relationships, and the `->` indicates the direction of a relationship. You draw the pattern of nodes/relationships with `(a)-[r]->(b)`. You can read the above as: "Match a `Person` with the `name` 'Tom Hanks' and assign that to `p`, follow the `ACTED_IN` relationship to any `Movie` and assign that movie to `m`. Then return the `title` of every `m` movie you found."
 
-Relationships can go in two directions, and you can specify more than one relationship in a single `MATCH` statement. For example `MATCH (a)-[:RELATIONSHIP]->(b)<-[:RELATIONSHIP]-(c)` is valid.
+Relationships can go in two directions, and you can specify more than one relationship in a single `MATCH` statement. For example, `MATCH (a)-[:RELATIONSHIP]->(c)<-[:RELATIONSHIP]-(b)` is valid and will find all `a` and `b` nodes that share a common `RELATIONSHIP` with any `c` node.
 
-[Here's more comprehensive documentation on Cypher](https://neo4j.com/docs/developer-manual/current/cypher/) if you need to look up anything specific. But keep in mind that the 2nd query above is actually very close to what you need.
+You can also split your matches onto separate lines. The following is equivalent to `MATCH (a:City)-[:IN]->(c:Country)<-[:IN]-(b:City)`:
+
+```cypher
+MATCH (a:City)-[:IN]->(c:Country)
+MATCH (b:City)-[:IN]->(c)
+WHERE a <> b
+```
+
+Because we're reusing `c`, we don't have to repeat that it's a `Country`. However, we do need to add `WHERE a <> b` (`<>` means 'not equal to') becaue in the multiple line version, `a` and `b` could match the same `City`.
+
+[Here's more comprehensive documentation on Cypher](https://neo4j.com/docs/developer-manual/current/cypher/) if want to look up anything specific. But keep in mind that the 2nd query above is actually very close to what you need, and most of the rest can be found in this README. We don't expect you to be a Cypher expert in half an hour.
 
 ### Python Neo4J driver
 
@@ -67,7 +77,7 @@ This exercise is running 2 Docker containers on the laptop: One for "neo4j" and 
 
 We've pulled out the commands you'll need in Docker into scripts in the `bin` directory:
 
-- `bin/run` to run your python script, located in *scripts/answer.py*. Right now, it just says 'hello world'
+- `bin/run` to run your python script, located in *scripts/answer.py*. Right now, it just says 'hello world'. Feel free to run it as many times as you need to. Not a bad idea to run it right now!
 - `bin/rebuild-app` to rebuild the application container (you may find you need to install a library)
 - `bin/python-console` and `bin/bash-console`: Depending on how you like to work (if you want to test commands or code snippets), these may be useful. But you can also just re-run the first 2 commands to test changes.
 
@@ -100,7 +110,7 @@ Dockerfiles specify steps for building a container. You may need to edit one. Th
 
 ### Networking with Docker
 
-Within the Docker containers, other services will be available by using their service name as a hostname. For example, `bolt://neo4j` will be allow you to access `neo4j` from the `app` container via the "bolt" protocol.
+Within the Docker containers, other services will be available by using their service name as a hostname. For example, `bolt://neo4j` will allow you to access `neo4j` from the `app` container via the "bolt" protocol.
 
 ## For interviewers
 
