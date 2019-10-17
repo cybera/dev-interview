@@ -113,7 +113,7 @@ Within the Docker containers, other services will be available by using their se
 
 We've pulled out the commands you'll need in Docker into scripts in the `bin` directory:
 
-- `bin/run` to run your python script, located in *scripts/answer.py*. Right now, it just says 'hello world'. Feel free to run it as many times as you need to. Not a bad idea to run it right now!
+- `bin/run` to run your python script, located in *scripts/answer.py*. By default, it just says 'hello world'. Feel free to run it as many times as you need to. Not a bad idea to run it right now!
 - `bin/rebuild-app` to rebuild the application container (you may find you need to install a library)
 - `bin/python-console` and `bin/bash-console`: Depending on how you like to work (if you want to test commands or code snippets), these may be useful. But you can also just re-run the first 2 commands to test changes.
 
