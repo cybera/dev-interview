@@ -83,9 +83,9 @@ Because we're reusing `c`, we don't have to repeat that it's a `Country`. Howeve
 
 ### Python Neo4J driver
 
-You can find the original documentation for the neo4j Python driver [here](https://github.com/neo4j/neo4j-python-driver).
+You can find the original documentation for the neo4j Python driver [here](https://github.com/neo4j/neo4j-python-driver), but it's more complex than what you'll need.
 
-But it's more complex than what you'll need. Here is a simplified version of their "Quick Example" (note, you'll still have to make at least one change other than your query, as they assume your script accesses neo4j through 'localhost', which isn't the case here, where we're using Docker containers):
+Here is a simplified version of their "Quick Example" (you'll still have to make at least one change other than your query, as they assume your script accesses neo4j through 'localhost', which isn't the case here, where we're using Docker containers):
 
 ```python
 from neo4j import GraphDatabase
