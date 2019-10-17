@@ -26,6 +26,26 @@ Haven't used a graph database before? Great! Don't worry about understanding it 
 
 ## Important Documentation
 
+### Docker
+
+This exercise is running 2 Docker containers on the laptop: One for "neo4j" and one for the "app", which is where your script runs. We don't expect you to learn or know Docker as well in this exercise, but you should think of these 2 containers as if they're 2 separate servers.
+
+#### Networking with Docker
+
+Within the Docker containers, other services will be available by using their service name as a hostname. For example, `bolt://neo4j` will allow you to access `neo4j` from the `app` container via the "bolt" protocol. Although you can access a container via 'localhost' and a port if it has exposed that port to the host machine (this laptop), the containers themselves are not aware of this. They only know how to access each other.
+
+#### Basic commands
+
+We've pulled out the commands you'll need in Docker into scripts in the `bin` directory:
+
+- `bin/run` to run your python script, located in *scripts/answer.py*. By default, it just says 'hello world'. Feel free to run it as many times as you need to. Not a bad idea to run it right now!
+- `bin/rebuild-app` to rebuild the application container (you may find you need to install a library)
+- `bin/python-console` and `bin/bash-console`: Depending on how you like to work (if you want to test commands or code snippets), these may be useful. But you can also just re-run the first 2 commands to test changes.
+
+#### Dockerfiles
+
+Dockerfiles specify steps for building a container. You'll eventually need to edit one of them to get everything working. The app's Dockerfile is in *setup/app/Dockerfile* and neo4j's is in *setup/neo4j/Dockerfile*.
+
 ### Neo4J Cypher query language
 
 Here's a crash course in Cypher, related to your problem. Let's start with a really basic query. How do you find 'Tom Hanks'?
@@ -100,26 +120,6 @@ RETURN n.prop
 for r in results:
   print(r['n.prop'])
 ```
-
-### Docker
-
-This exercise is running 2 Docker containers on the laptop: One for "neo4j" and one for the "app", which is where your script runs. We don't expect you to learn or know Docker as well in this exercise, but you should think of these 2 containers as if they're 2 separate servers.
-
-#### Networking with Docker
-
-Within the Docker containers, other services will be available by using their service name as a hostname. For example, `bolt://neo4j` will allow you to access `neo4j` from the `app` container via the "bolt" protocol.
-
-#### Basic commands
-
-We've pulled out the commands you'll need in Docker into scripts in the `bin` directory:
-
-- `bin/run` to run your python script, located in *scripts/answer.py*. By default, it just says 'hello world'. Feel free to run it as many times as you need to. Not a bad idea to run it right now!
-- `bin/rebuild-app` to rebuild the application container (you may find you need to install a library)
-- `bin/python-console` and `bin/bash-console`: Depending on how you like to work (if you want to test commands or code snippets), these may be useful. But you can also just re-run the first 2 commands to test changes.
-
-#### Dockerfiles
-
-Dockerfiles specify steps for building a container. You'll need to edit one of them to get everything working. The app's Dockerfile is in *setup/app/Dockerfile* and neo4j's is in *setup/neo4j/Dockerfile*.
 
 ## For interviewers
 
