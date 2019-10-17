@@ -79,7 +79,7 @@ WHERE a <> b
 
 Because we're reusing `c`, we don't have to repeat that it's a `Country`. However, we do need to add `WHERE a <> b` (`<>` means 'not equal to') becaue in the multiple line version, `a` and `b` could match the same `City`.
 
-[Here's more comprehensive documentation on Cypher](https://neo4j.com/docs/developer-manual/current/cypher/) if want to look up anything specific. But keep in mind that the 2nd Tom Hanks query above is very close to what you need, and most of the rest can be found in this README. We don't expect you to be a Cypher expert in half an hour.
+[Here's more comprehensive documentation on Cypher](https://neo4j.com/docs/developer-manual/3.4/cypher/) and a [handy refcard](https://neo4j.com/docs/cypher-refcard/3.4/) if want to look up anything specific. But keep in mind that the 2nd Tom Hanks query above is very close to what you need, and most of the rest can be found in this README. We don't expect you to be a Cypher expert in half an hour.
 
 ### Python Neo4J driver
 
