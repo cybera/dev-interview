@@ -1,6 +1,6 @@
 # Form Stepper Challenge
 
-Your task is to take a regular form and transform it into a wizard-like workflow by dividing its content into three parts which is navigable by using "Next" and "Back" buttons. This type of form is usually referred to as a Form Stepper.
+Your task is to take a regular form and transform it into a wizard-like workflow by dividing its content into three parts. You will be able to navigate to each part by using "Next" and "Back" buttons. This type of form is usually referred to as a "Form Stepper" or "Multi-step Form".
 
 You may develop the stepper from scratch or implement the [Material-UI Stepper component](https://material-ui.com/components/steppers/). Either way is acceptable.
 
