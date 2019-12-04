@@ -28,14 +28,20 @@ const PlantForm = (props) => {
         <Paper className={classes.root}>
 
           {/* TODO: only show the form for the current step */}
-          <Typography variant="h4">{PartA.label}</Typography>
-          <PartA.Form />
+          <div>
+            <Typography variant="h4" gutterBottom>{PartA.label}</Typography>
+            <PartA.Form />
+          </div>
           
-          <Typography variant="h4">{PartB.label}</Typography>
-          <PartB.Form />
+          <div>
+            <Typography variant="h4" gutterBottom>{PartB.label}</Typography>
+            <PartB.Form />
+          </div>
 
-          <Typography variant="h4">{PartC.label}</Typography>
-          <PartC.Form />
+          <div>
+            <Typography variant="h4" gutterBottom>{PartC.label}</Typography>
+            <PartC.Form />
+          </div>
 
           <div className={classes.actionsContainer}>
             <Button 
@@ -63,7 +69,6 @@ const PlantForm = (props) => {
               className={classes.button}
               variant="contained"
               color="primary"
-              onClick={handleBack}
               type="submit"
             >
               Submit Plant
