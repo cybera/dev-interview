@@ -3,7 +3,7 @@ import { Formik, Form } from 'formik';
 import { Button, Typography, Paper } from '@material-ui/core'
 
 import { useStyles, validate, defaultValues, submitForm } from './extras'
-import { PartA, PartB, PartC } from './form-groups';
+import { PartA, PartB, PartC } from './form-parts';
 
 
 const PlantForm = (props) => {
