@@ -3,6 +3,8 @@
 SCRIPT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )" && pwd )"
 PROJECT_DIR="$(dirname $SCRIPT_DIR)"
 
+docker-compose down
+rm -Rf $PROJECT_DIR/volumes/neo4j/data
 mkdir -p $PROJECT_DIR/volumes/neo4j/data
 mkdir -p $PROJECT_DIR/volumes/neo4j/logs
 
